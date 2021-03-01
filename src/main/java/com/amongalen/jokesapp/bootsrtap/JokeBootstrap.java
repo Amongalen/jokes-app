@@ -47,6 +47,5 @@ public class JokeBootstrap implements ApplicationListener<ContextRefreshedEvent>
         }
         log.error("######## Joke info loaded");
         log.error("######## Joke info in repository: " + jokeInfoRepository.findAll().count().block().equals(1L));
-
     }
 }
