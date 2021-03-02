@@ -5,8 +5,31 @@
     <title>Title</title>
 </head>
 <body>
-<h2>Jokes</h2>
+<h2>Get Jokes</h2>
 
-<div th:text="${jokeInfo.version}"></div>
+<form th:action="@{/findJoke}" th:object="${jokeFormInput}" method="post">
+    <table>
+        <tr>
+            <td>Category:</td>
+            <td>
+                <input type="checkbox" th:each="category :${jokeInfo.jokes.categories}" th:text="${category}"
+                       th:field="*{categories}" th:value="${category}">
+            <td>
+        </tr>
+        <tr>
+            <td>Language:</td>
+            <td>
+                <select th:field="*{language}">
+                    <option th:each="safejoke :${jokeInfo.jokes.safeJokes}" th:text="${safejoke.lang}"
+                            th:value="${safejoke.lang}">option 1
+                    </option>
+                </select>
+            <td>
+        </tr>
+        <tr>
+            <button type="submit">Find Jokes</button>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
