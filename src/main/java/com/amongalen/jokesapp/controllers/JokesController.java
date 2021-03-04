@@ -1,6 +1,6 @@
 package com.amongalen.jokesapp.controllers;
 
-import com.amongalen.jokesapp.domain.JokeFormInput;
+import com.amongalen.jokesapp.domain.JokeSearchParameters;
 import com.amongalen.jokesapp.domain.jokeinfo.JokeInfo;
 import com.amongalen.jokesapp.services.JokeInfoService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +23,8 @@ public class JokesController {
     }
 
     @ModelAttribute("jokeFormInput")
-    public JokeFormInput backingJokeFormInput() {
-        return new JokeFormInput();
+    public JokeSearchParameters backingJokeFormInput() {
+        return new JokeSearchParameters();
     }
 
     @ModelAttribute("jokeInfo")
@@ -38,7 +38,7 @@ public class JokesController {
     }
 
     @PostMapping("findJoke")
-    public String findJoke(JokeFormInput jokeFormInput, BindingResult result, Model model) {
+    public String findJoke(JokeSearchParameters jokeSearchParameters, BindingResult result, Model model) {
         return "index";
     }
 }
