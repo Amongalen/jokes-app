@@ -14,5 +14,4 @@ public class JokeFormInput {
     private String language;
     private List<String> flags;
     private List<String> jokeTypes;
-    private Integer amount;
 }

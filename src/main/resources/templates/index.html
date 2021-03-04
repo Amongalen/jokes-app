@@ -10,20 +10,36 @@
 <form th:action="@{/findJoke}" th:object="${jokeFormInput}" method="post">
     <table>
         <tr>
-            <td>Category:</td>
+            <td>Select category:</td>
             <td>
                 <input type="checkbox" th:each="category :${jokeInfo.jokes.categories}" th:text="${category}"
                        th:field="*{categories}" th:value="${category}">
             <td>
         </tr>
         <tr>
-            <td>Language:</td>
+            <td>Select language:</td>
             <td>
-                <select th:field="*{language}">
-                    <option th:each="safejoke :${jokeInfo.jokes.safeJokes}" th:text="${safejoke.lang}"
-                            th:value="${safejoke.lang}">option 1
+                <select id="language" name="language">
+                    <option th:each="safejoke :${jokeInfo.jokes.safeJokes}"
+                            th:text="${safejoke.lang}"
+                            th:value="${safejoke.lang}"
+                            th:selected="${safejoke.lang.equals('en')}">option 1
                     </option>
                 </select>
+            <td>
+        </tr>
+        <tr>
+            <td>Select flags to blacklist</td>
+            <td>
+                <input type="checkbox" th:each="flag :${jokeInfo.jokes.flags}" th:text="${flag}"
+                       th:field="*{flags}" th:value="${flag}">
+            <td>
+        </tr>
+        <tr>
+            <td>Select at least one joke type</td>
+            <td>
+                <input type="checkbox" th:each="jokeType :${jokeInfo.jokes.types}" th:text="${jokeType}"
+                       th:field="*{jokeTypes}" th:value="${jokeType}">
             <td>
         </tr>
         <tr>
