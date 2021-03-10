@@ -9,32 +9,31 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Service
 public class JokeSearchServiceImpl implements JokeSearchService {
 
 
-    private final String baseUrl;
+    private final WebClient client;
 
     public JokeSearchServiceImpl(@Value("${joke.api.baseurl}") String baseUrl) {
-        this.baseUrl = baseUrl;
+        client = WebClient.builder()
+                .baseUrl(baseUrl)
+                .build();
     }
 
     @Override
     public Mono<Joke> getJoke(JokeSearchParameters searchParameters) {
-        String categories = String.join(",", searchParameters.getCategories());
-        String finalCategories = StringUtils.isBlank(categories) ? "any" : categories;
-        LinkedMultiValueMap<String, String> paramsMap = getParamsMap(searchParameters);
-        WebClient client = WebClient.builder()
-                .baseUrl(baseUrl)
-                .build();
+        List<String> categories = searchParameters.getCategories();
+        String categoriesPath = categories.isEmpty() ? "any" : String.join(",", categories);
         return client.get()
                 .uri(uriBuilder ->
                         uriBuilder
                                 .path("joke/")
-                                .path(finalCategories)
-                                .queryParams(paramsMap)
+                                .path(categoriesPath)
+                                .queryParams(getParamsMap(searchParameters))
                                 .build()
-
                 ).retrieve()
                 .bodyToMono(Joke.class);
     }

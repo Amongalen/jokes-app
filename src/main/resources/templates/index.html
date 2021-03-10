@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<!--/* Workaround for bug https://youtrack.jetbrains.com/issue/IDEA-132738 -->
+<!--@thymesVar id="jokeFormInput" type="com.amongalen.jokesapp.domain.JokeSearchParameters"-->
+<!--@thymesVar id="jokeInfo" type="com.amongalen.jokesapp.domain.jokeinfo.JokeInfo"-->
+<!--@thymesVar id="joke" type="com.amongalen.jokesapp.domain.Joke"-->
+<!--*/-->
+
 <body>
 <h2>Get Jokes</h2>
 
-<form th:action="@{/findJoke}" th:object="${jokeSearchParameters}" method="post">
+<form th:action="@{/findJoke}" th:object="${jokeFormInput}" method="post">
     <table>
         <tr>
             <td>Select category:</td>
@@ -47,5 +53,21 @@
         </tr>
     </table>
 </form>
+<br/>
+<span th:if="${joke!=null}">
+    <div th:if="${joke.type == 'twopart'}">
+        Category: <span th:text="${joke.category}"></span><br/>
+        Setup: <span th:text="${joke.setup} ?:''"></span> <br/>
+        <details>
+            <summary>Delivery:</summary>
+            <span th:text="${joke.delivery} ?:''"></span>
+        </details>
+    </div>
+
+    <div th:if="${joke.type != 'twopart'}">
+        Category: <span th:text="${joke.category}"></span><br/>
+        Joke: <span th:text="${joke.joke} ?:''"></span><br/>
+    </div>
+</span>
 </body>
 </html>
