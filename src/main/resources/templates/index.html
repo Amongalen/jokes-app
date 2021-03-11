@@ -1,16 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<body>
 <!--/* Workaround for bug https://youtrack.jetbrains.com/issue/IDEA-132738 -->
 <!--@thymesVar id="jokeFormInput" type="com.amongalen.jokesapp.domain.JokeSearchParameters"-->
 <!--@thymesVar id="jokeInfo" type="com.amongalen.jokesapp.domain.jokeinfo.JokeInfo"-->
 <!--@thymesVar id="joke" type="com.amongalen.jokesapp.domain.Joke"-->
 <!--*/-->
 
-<body>
+<a th:href="@{/login}">Log in</a>
+<div th:fragment="logout"
+     sec:authorize="isAuthenticated()">
+    Logged user: <span sec:authentication="name">Bob</span>
+    <!--/* When using CSRF this needs to be a POST */-->
+    <form th:action="@{/logout}" method="post" style="display:inline"><input type="submit" value="Logout"/></form>
+</div>
+
+
 <h2>Get Jokes</h2>
 
 <form th:action="@{/findJoke}" th:object="${jokeFormInput}" method="post">
@@ -54,7 +64,7 @@
     </table>
 </form>
 <br/>
-<span th:if="${joke!=null}">
+<span th:if="${joke!=null && joke.id !=null}">
     <div th:if="${joke.type == 'twopart'}">
         Category: <span th:text="${joke.category}"></span><br/>
         Setup: <span th:text="${joke.setup} ?:''"></span> <br/>
