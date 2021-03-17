@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class JokeSearchParameters {
+public class SearchParameters {
     private String language;
     @Singular
     private List<String> categories;

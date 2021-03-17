@@ -7,8 +7,8 @@
 </head>
 <body>
 <!--/* Workaround for bug https://youtrack.jetbrains.com/issue/IDEA-132738 -->
-<!--@thymesVar id="jokeFormInput" type="com.amongalen.jokesapp.domain.JokeSearchParameters"-->
-<!--@thymesVar id="jokeInfo" type="com.amongalen.jokesapp.domain.jokeinfo.JokeInfo"-->
+<!--@thymesVar id="searchParameters" type="com.amongalen.jokesapp.domain.SearchParameters"-->
+<!--@thymesVar id="jokeInfo" type="com.amongalen.jokesapp.domain.jokeapimetadata.JokeInfo"-->
 <!--@thymesVar id="joke" type="com.amongalen.jokesapp.domain.Joke"-->
 <!--*/-->
 
@@ -23,7 +23,7 @@
 
 <h2>Get Jokes</h2>
 
-<form th:action="@{/findJoke}" th:object="${jokeFormInput}" method="post">
+<form th:action="@{/findJoke}" th:object="${searchParameters}" method="post">
     <table>
         <tr>
             <td>Select category:</td>

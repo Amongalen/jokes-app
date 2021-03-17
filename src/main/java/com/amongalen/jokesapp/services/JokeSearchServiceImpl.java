@@ -1,8 +1,7 @@
 package com.amongalen.jokesapp.services;
 
 import com.amongalen.jokesapp.domain.Joke;
-import com.amongalen.jokesapp.domain.JokeSearchParameters;
-import org.apache.commons.lang3.StringUtils;
+import com.amongalen.jokesapp.domain.SearchParameters;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -24,7 +23,7 @@ public class JokeSearchServiceImpl implements JokeSearchService {
     }
 
     @Override
-    public Mono<Joke> getJoke(JokeSearchParameters searchParameters) {
+    public Mono<Joke> getJoke(SearchParameters searchParameters) {
         List<String> categories = searchParameters.getCategories();
         String categoriesPath = categories.isEmpty() ? "any" : String.join(",", categories);
         return client.get()
@@ -38,7 +37,7 @@ public class JokeSearchServiceImpl implements JokeSearchService {
                 .bodyToMono(Joke.class);
     }
 
-    private LinkedMultiValueMap<String, String> getParamsMap(JokeSearchParameters searchParameters) {
+    private LinkedMultiValueMap<String, String> getParamsMap(SearchParameters searchParameters) {
         LinkedMultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         if (!searchParameters.getFlags().isEmpty()) {
             map.add("blacklistFlags", String.join(",", searchParameters.getFlags()));

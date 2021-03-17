@@ -1,4 +1,4 @@
-package com.amongalen.jokesapp.domain.jokeinfo;
+package com.amongalen.jokesapp.domain.jokeapimetadata;
 
 import java.util.List;
 

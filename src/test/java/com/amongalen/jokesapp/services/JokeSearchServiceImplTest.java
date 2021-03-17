@@ -1,7 +1,7 @@
 package com.amongalen.jokesapp.services;
 
 import com.amongalen.jokesapp.domain.Joke;
-import com.amongalen.jokesapp.domain.JokeSearchParameters;
+import com.amongalen.jokesapp.domain.SearchParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import mockwebserver3.MockResponse;
 import mockwebserver3.MockWebServer;
@@ -51,7 +51,7 @@ class JokeSearchServiceImplTest {
         mockBackEnd.enqueue(new MockResponse().setBody(MAPPER.writeValueAsString(mockJoke))
                 .addHeader("Content-Type", "application/json"));
 
-        JokeSearchParameters searchParameters = JokeSearchParameters.builder()
+        SearchParameters searchParameters = SearchParameters.builder()
                 .categories(List.of("misc", "programming"))
                 .flags(List.of("nsfw", "explicit"))
                 .jokeTypes(List.of("single", "twopart"))
@@ -73,7 +73,7 @@ class JokeSearchServiceImplTest {
         mockBackEnd.enqueue(new MockResponse().setBody(MAPPER.writeValueAsString(mockJoke))
                 .addHeader("Content-Type", "application/json"));
 
-        JokeSearchParameters searchParameters = JokeSearchParameters.builder().build();
+        SearchParameters searchParameters = SearchParameters.builder().build();
         Mono<Joke> joke = jokeService.getJoke(searchParameters);
         StepVerifier.create(joke)
                 .expectNextMatches(joke1 -> joke1.getJoke().equals("some joke"))

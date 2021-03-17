@@ -1,6 +1,6 @@
 package com.amongalen.jokesapp.bootsrtap;
 
-import com.amongalen.jokesapp.domain.jokeinfo.JokeInfo;
+import com.amongalen.jokesapp.domain.jokeapimetadata.JokeInfo;
 import com.amongalen.jokesapp.repositories.JokeInfoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
