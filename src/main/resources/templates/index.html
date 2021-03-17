@@ -12,14 +12,20 @@
 <!--@thymesVar id="joke" type="com.amongalen.jokesapp.domain.Joke"-->
 <!--*/-->
 
-<a th:href="@{/login}">Log in</a>
-<div th:fragment="logout"
-     sec:authorize="isAuthenticated()">
-    Logged user: <span sec:authentication="name">Bob</span>
-    <!--/* When using CSRF this needs to be a POST */-->
-    <form th:action="@{/logout}" method="post" style="display:inline"><input type="submit" value="Logout"/></form>
+<!-- sec:authorize="isAnonymous()" doesn't work, see: -->
+<!--https://github.com/thymeleaf/thymeleaf-extras-springsecurity/issues/68-->
+<div>
+    Test
+    <form th:action="@{/login}" method="post" style="display:inline"><input type="submit" value="Log in"/></form>
 </div>
 
+<div sec:authorize="isAuthenticated()">
+    Logged user: <span sec:authentication="name">Bob</span>
+    <!--/* When using CSRF this needs to be a POST */-->
+    <form th:target="_self" th:action="@{/logout}" method="post" style="display:inline">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
 
 <h2>Get Jokes</h2>
 
@@ -79,5 +85,6 @@
         Joke: <span th:text="${joke.joke} ?:''"></span><br/>
     </div>
 </span>
+<form th:action="@{/likeit}" method="post" style="display:inline"><input type="submit" value="Like it"/></form>
 </body>
 </html>
